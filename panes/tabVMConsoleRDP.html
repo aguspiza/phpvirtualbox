@@ -267,7 +267,7 @@ function vboxRDPLoad() {
 	// No flash installed
 	if(!ua || ua.pv[0] == '0') {
 		$('#vboxRDPFormContainer').css('display','none');
-		$("#FlashRDP").css('width','100%').html("The Adobe Flash plugin is not installed.");
+		$("#FlashRDP").css('width','100%').html('<iframe style="position: relative; height: 100%; width: 100%; min-width: '+width+'px; min-height: '+height+'px;" src="sparkgateway/rdpdirect.html?gateway='+gw+'&server='+chost+'&port='+runtimeData.VRDEServerInfo.port+'"></iframe>');
 	}
 }
 

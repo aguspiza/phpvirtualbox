@@ -164,8 +164,14 @@ $('#vboxTabVMConsole').on('show',function(){
 		var height = wh[1];
 		
 		var chost = vboxGetVRDEHost(runtimeData);
-		
-		$('#vboxVNCAppletContainer').empty().html('<APPLET CODE="VncViewer.class" ARCHIVE="tightvnc/VncViewer.jar" width="'+width+'" height="'+height+'"><PARAM NAME="PORT" VALUE="'+runtimeData.VRDEServerInfo.port+'"><PARAM NAME="HOST" VALUE="'+chost+'"></APPLET>');
+
+		//Do this if we're using SparkGateway
+		if($("#vboxPane").data('vboxConfig').consoleSparkGateway) {
+			var gw = $("#vboxPane").data('vboxConfig').consoleSparkGateway;
+			$('#vboxVNCAppletContainer').empty().html('<iframe style="position: relative; height: 100%; width: 100%; min-width: '+width+'px; min-height: '+height+'px;" src="sparkgateway/vncdirect.html?gateway='+gw+'&server='+chost+'&port='+runtimeData.VRDEServerInfo.port+'&pwd='+runtimeData.VRDEServer.VNCPassword+'"></iframe>');
+		} else {
+			$('#vboxVNCAppletContainer').empty().html('<APPLET CODE="VncViewer.class" ARCHIVE="tightvnc/VncViewer.jar" width="'+width+'" height="'+height+'"><PARAM NAME="PORT" VALUE="'+runtimeData.VRDEServerInfo.port+'"><PARAM NAME="HOST" VALUE="'+chost+'"></APPLET>');
+		}
 
 	});
 
